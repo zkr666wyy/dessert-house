@@ -433,10 +433,49 @@ body{font-family:'Microsoft YaHei','PingFang SC',sans-serif;background:linear-gr
 <!-- 添加活动弹窗 -->
 <div class="modal-overlay" id="add-activity-modal">
 <div class="modal">
-<div class="modal-title">➕ 添加自定义活动</div>
-<input type="text" class="add-activity-input" id="new-activity-name" placeholder="输入活动名称...">
-<button class="phonics-btn" onclick="addCustomActivity()">添加活动</button>
-<button class="modal-close" onclick="closeAddActivityModal()" style="margin-top:10px">取消</button>
+<div class="modal-title">➕ 添加任务</div>
+
+<!-- 指定添加（下拉菜单） -->
+<div style="margin-bottom:15px">
+<div style="font-size:13px;color:#6C3483;margin-bottom:8px;font-weight:bold">📋 指定添加</div>
+<select class="add-activity-input" id="preset-task-select" style="cursor:pointer">
+<option value="">-- 选择预设任务 --</option>
+<option value="📖|语文课文朗读">📖 语文课文朗读</option>
+<option value="✍️|语文生字听写">✍️ 语文生字听写</option>
+<option value="🌟|英语单词默写">🌟 英语单词默写</option>
+<option value="🔢|数学口算练习">🔢 数学口算练习</option>
+<option value="📐|数学应用题">📐 数学应用题</option>
+<option value="📰|天天时文阅读">📰 天天时文阅读</option>
+<option value="🎤|小讲师">🎤 小讲师</option>
+<option value="📚|语文作业">📚 语文作业</option>
+<option value="📝|数学作业">📝 数学作业</option>
+<option value="🌟|英语作业">🌟 英语作业</option>
+<option value="📻|听故事">📻 听故事</option>
+<option value="👨‍🏫|听邵鑫">👨‍🏫 听邵鑫</option>
+<option value="🐟|伴鱼阅读营">🐟 伴鱼阅读营</option>
+<option value="📖|课文预习">📖 课文预习</option>
+<option value="🔤|自然拼读">🔤 自然拼读</option>
+<option value="➕|口算练习">➕ 口算练习</option>
+<option value="📏|图形练习">📏 图形练习</option>
+<option value="✍️|作文起步">✍️ 作文起步</option>
+<option value="📖|古诗词背诵">📖 古诗词背诵</option>
+</select>
+<button class="phonics-btn" onclick="addPresetTask()" style="margin-top:8px">添加指定任务</button>
+</div>
+
+<!-- 分割线 -->
+<div style="border-top:2px dashed #F8BBD9;margin:15px 0;position:relative">
+<span style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#FFF0F5;padding:0 10px;font-size:12px;color:#C2185B">或</span>
+</div>
+
+<!-- 自定义添加（手动输入） -->
+<div style="margin-bottom:10px">
+<div style="font-size:13px;color:#6C3483;margin-bottom:8px;font-weight:bold">✏️ 自定义添加</div>
+<input type="text" class="add-activity-input" id="new-activity-name" placeholder="输入自定义任务名称...">
+<button class="phonics-btn" onclick="addCustomActivity()" style="margin-top:8px;background:linear-gradient(145deg,#A9DFBF,#7DCEA0);color:#1E8449">添加自定义任务</button>
+</div>
+
+<button class="modal-close" onclick="closeAddTaskModal()" style="margin-top:10px">取消</button>
 </div>
 </div>
 <!-- 底部弹出菜单 -->
@@ -640,8 +679,44 @@ function addCustomActivity() {
   data.tasks.push(newTask);
   saveData();
   renderTaskLists();
+  updateHomeProgress();
   closeAddTaskModal();
-  showToast('✅ 任务添加成功！');
+  showToast('✅ 自定义任务添加成功！');
+}
+
+// 添加指定任务（下拉菜单选择）
+function addPresetTask() {
+  var select = document.getElementById('preset-task-select');
+  var value = select.value;
+  if (!value) { showToast('请选择一个任务'); return; }
+
+  var parts = value.split('|');
+  var emoji = parts[0];
+  var text = parts[1];
+
+  // 检查是否已存在相同任务
+  var exists = false;
+  for (var i = 0; i < data.tasks.length; i++) {
+    if (data.tasks[i].text === text) { exists = true; break; }
+  }
+  if (exists) { showToast('该任务已在列表中'); return; }
+
+  var newTask = {
+    id: Date.now(),
+    emoji: emoji,
+    text: text,
+    done: false
+  };
+  data.tasks.push(newTask);
+  saveData();
+  renderTaskLists();
+  updateHomeProgress();
+
+  // 重置下拉菜单
+  select.value = '';
+
+  // 如果还有任务没添加完，保持弹窗打开；否则关闭
+  showToast('✅ ' + text + ' 已添加！');
 }
 
 function getRandomEmoji() {
