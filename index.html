@@ -77,6 +77,12 @@ body{font-family:'Microsoft YaHei','PingFang SC',sans-serif;background:linear-gr
 .checkin-btn:active{transform:scale(.92)}
 .btn-todo{background:linear-gradient(145deg,#FADBD8,#F5B7B1);color:#C0392B}
 .btn-done{background:linear-gradient(145deg,#D5F5E3,#ABEBC6);color:#27AE60}
+
+/* 打卡状态 */
+.checkin-status{display:flex;align-items:center;justify-content:center;width:32px;height:32px}
+.checkin-circle{width:24px;height:24px;border:2px solid #F8BBD9;border-radius:50%;transition:all .3s}
+.checkin-item.completed .checkin-circle{border-color:#27AE60;background:#27AE60}
+.checkin-item:active{transform:scale(.98)}
 .shop-header{text-align:center;padding:20px 0}
 .shop-header h2{color:#C2185B;font-size:24px;text-shadow:2px 2px 0px #FFE4EC,0 3px 6px rgba(0,0,0,.1)}
 .shop-tabs{display:flex;gap:8px;overflow-x:auto;padding:12px 0;margin-bottom:12px}
@@ -175,23 +181,24 @@ body{font-family:'Microsoft YaHei','PingFang SC',sans-serif;background:linear-gr
 .toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.8);background:linear-gradient(145deg,#C2185B,#AD1457);color:white;padding:15px 30px;border-radius:20px;font-size:14px;font-weight:bold;z-index:300;opacity:0;pointer-events:none;transition:all .3s cubic-bezier(.34,1.56,.64,1);box-shadow:0 10px 30px rgba(194,24,89,.4)}
 .toast.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
 
-/* 今日挑战选择器 */
-.daily-challenge-selector { background: linear-gradient(145deg, rgba(255,255,255,.95), rgba(255,255,255,.85)); border-radius: 20px; padding: 16px; margin-bottom: 15px; box-shadow: 0 8px 25px rgba(0,0,0,.08), 0 4px 10px rgba(0,0,0,.04), inset 0 1px 1px rgba(255,255,255,.9); }
-.daily-challenge-selector h3 { color: #C2185B; font-size: 16px; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
-.challenge-task-list { display: flex; flex-direction: column; gap: 8px; }
-.challenge-task-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: rgba(255,255,255,.8); border-radius: 12px; cursor: pointer; transition: all .3s; border: 2px solid transparent; }
-.challenge-task-item:hover { border-color: #F8BBD9; transform: translateX(3px); }
-.challenge-task-item.selected { border-color: #C2185B; background: linear-gradient(145deg, #FCE4EC, #F8BBD9); }
-.challenge-task-item .task-checkbox { width: 22px; height: 22px; border: 2px solid #F8BBD9; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; color: white; transition: all .3s; flex-shrink: 0; }
-.challenge-task-item.selected .task-checkbox { background: #C2185B; border-color: #C2185B; }
-.challenge-task-item .task-info { flex: 1; font-size: 14px; color: #2C3E50; }
-.challenge-task-item .task-info small { display: block; font-size: 12px; color: #7F8C8D; }
-
 /* 挑战进度条 */
 .challenge-progress { background: linear-gradient(145deg, rgba(255,255,255,.95), rgba(255,255,255,.85)); border-radius: 20px; padding: 16px; margin-bottom: 15px; box-shadow: 0 6px 18px rgba(0,0,0,.06); }
 .challenge-progress-bar { width: 100%; height: 12px; background: #F0F0F0; border-radius: 6px; overflow: hidden; margin: 10px 0; }
 .challenge-progress-fill { height: 100%; background: linear-gradient(90deg, #F8BBD9, #C2185B); border-radius: 6px; transition: width .5s cubic-bezier(.34,1.56,.64,1); }
 .challenge-progress-text { text-align: center; font-size: 14px; color: #6C3483; font-weight: bold; }
+
+/* 首页挑战卡片 */
+.home-challenge-card { background: linear-gradient(145deg, rgba(255,255,255,.95), rgba(255,255,255,.85)); border-radius: 20px; padding: 14px 16px; margin: 0 16px 12px; box-shadow: 0 6px 18px rgba(0,0,0,.06); cursor: pointer; transition: transform .2s; }
+.home-challenge-card:active { transform: scale(.98); }
+.home-challenge-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.home-challenge-header span:first-child { font-size: 15px; font-weight: bold; color: #6C3483; }
+.home-challenge-status { font-size: 12px; padding: 3px 10px; border-radius: 10px; background: #FCE4EC; color: #C2185B; font-weight: bold; }
+.home-challenge-status.done { background: #E8F5E9; color: #27AE60; }
+.home-challenge-progress { display: flex; align-items: center; gap: 10px; }
+.home-challenge-bar { flex: 1; height: 10px; background: #F0F0F0; border-radius: 5px; overflow: hidden; }
+.home-challenge-fill { height: 100%; background: linear-gradient(90deg, #F8BBD9, #C2185B); border-radius: 5px; transition: width .5s cubic-bezier(.34,1.56,.64,1); }
+.home-challenge-fill.done { background: linear-gradient(90deg, #27AE60, #2ECC71); }
+.home-challenge-text { font-size: 13px; color: #6C3483; font-weight: bold; min-width: 35px; text-align: right; }
 
 /* 挑战成功动画 */
 @keyframes challengeSuccess { 0% { transform: scale(0) rotate(-180deg); opacity: 0; } 50% { transform: scale(1.2) rotate(10deg); } 70% { transform: scale(0.9) rotate(-5deg); } 100% { transform: scale(1) rotate(0deg); opacity: 1; } }
@@ -236,6 +243,17 @@ body{font-family:'Microsoft YaHei','PingFang SC',sans-serif;background:linear-gr
 <div class="star-display"><span>🪙</span><span class="coin-num" id="coin-count">0</span></div>
 <div class="star-display"><span>🛡️</span><span class="shield-num" id="shield-count">0</span></div>
 </div>
+<!-- 首页今日挑战进度 -->
+<div class="home-challenge-card" id="home-challenge-card" onclick="switchPage('checkin')" style="display:none">
+<div class="home-challenge-header">
+<span>🎯 今日挑战</span>
+<span class="home-challenge-status" id="home-challenge-status">进行中</span>
+</div>
+<div class="home-challenge-progress">
+<div class="home-challenge-bar"><div class="home-challenge-fill" id="home-challenge-fill" style="width:0%"></div></div>
+<span class="home-challenge-text" id="home-challenge-text">0/0</span>
+</div>
+</div>
 <div class="subject-section">
 <div class="section-title">📚 选择科目</div>
 <div class="subject-buttons">
@@ -266,15 +284,9 @@ body{font-family:'Microsoft YaHei','PingFang SC',sans-serif;background:linear-gr
 <div class="date-display" id="current-date"></div>
 <div class="streak-box">连续打卡<span id="streak-days">0</span>天🔥</div>
 </div>
-<!-- 今日挑战选择器 -->
-<div class="daily-challenge-selector" id="challenge-selector">
-<h3>🎯 今日挑战</h3>
-<p style="font-size:12px;color:#7F8C8D;margin-bottom:10px">勾选今天要完成的任务，全部完成可获得⭐奖励！</p>
-<div class="challenge-task-list" id="challenge-task-list"></div>
-</div>
-<!-- 挑战进度 -->
+<!-- 今日挑战进度 -->
 <div class="challenge-progress" id="challenge-progress" style="display:none">
-<div class="challenge-progress-text">挑战进度：<span id="progress-current">0</span>/<span id="progress-total">0</span></div>
+<div class="challenge-progress-text">今日进度：<span id="progress-current">0</span>/<span id="progress-total">0</span></div>
 <div class="challenge-progress-bar"><div class="challenge-progress-fill" id="progress-fill" style="width:0%"></div></div>
 </div>
 <div class="checkin-list" id="checkin-list"></div>
@@ -562,7 +574,6 @@ if(saved){var parsed=JSON.parse(saved);for(var k in parsed){data[k]=parsed[k];}}
 var today=new Date().toDateString();
 if(data.lastChallengeDate!==today){
 data.dailyChallengeCompleted=false;
-data.dailyChallengeTasks=[];
 data.lastChallengeDate=today;
 // 检查是否是新的一周（周一）
 var dayOfWeek=new Date().getDay();
@@ -572,7 +583,7 @@ if(dayOfWeek===1){ // 周一
 }
 saveData();
 }
-updateDisplay();renderCheckinList();updateTrophyDisplay();renderChallengeSelector();updateChallengeProgress();
+updateDisplay();renderCheckinList();updateTrophyDisplay();updateChallengeProgress();
 }
 function saveData(){localStorage.setItem('dessertHouseData',JSON.stringify(data));}
 // ===== 页面切换 =====
@@ -584,7 +595,6 @@ var nav=document.querySelector('.nav-item[data-page="'+pageName+'"]');
 if(nav)nav.classList.add('active');
 if(pageName==='checkin'){
 document.getElementById('current-date').textContent=new Date().toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
-renderChallengeSelector();
 updateChallengeProgress();
 }
 if(pageName==='shop'){updateTrophyDisplay();}
@@ -602,13 +612,14 @@ function renderCheckinList(){
 var list=document.getElementById('checkin-list');
 var allItems=data.checkinItems.concat(data.customActivities);
 list.innerHTML=allItems.map(function(item){
-return '<div class="checkin-item '+(item.done?'completed':'')+'" data-id="'+item.id+'">'+
+return '<div class="checkin-item '+(item.done?'completed':'')+'" onclick="toggleCheckin('+item.id+')" style="cursor:pointer">'+
 '<div class="checkin-left"><span class="checkin-emoji">'+item.emoji+'</span>'+
 '<div class="checkin-text">'+item.text+'<small>'+(item.sub||'')+'</small></div></div>'+
-'<button class="checkin-btn '+(item.done?'btn-done':'btn-todo')+'" onclick="toggleCheckin('+item.id+')">'+
-(item.done?'✅ 已完成':'⭕ 待完成')+'</button></div>';
+'<div class="checkin-status">'+(item.done?'<span style="font-size:24px">✅</span>':'<div class="checkin-circle"></div>')+'</div>'+
+'</div>';
 }).join('');
 }
+
 function toggleCheckin(id){
 var allItems=data.checkinItems.concat(data.customActivities);
 var item=null;
@@ -624,56 +635,65 @@ showToast('已取消打卡');
 }
 saveData();updateDisplay();renderCheckinList();updateChallengeProgress();
 }
-// ===== 今日挑战 =====
-function renderChallengeSelector(){
-var list=document.getElementById('challenge-task-list');
-if(!list)return;
-var allItems=data.checkinItems.concat(data.customActivities);
-list.innerHTML=allItems.map(function(item){
-var isSelected=data.dailyChallengeTasks.indexOf(item.id)!==-1;
-return '<div class="challenge-task-item '+(isSelected?'selected':'')+'" onclick="toggleChallengeTask('+item.id+')">'+
-'<div class="task-checkbox">'+(isSelected?'✓':'')+'</div>'+
-'<div class="task-info">'+item.emoji+' '+item.text+'<small>'+(item.sub||'')+'</small></div></div>';
-}).join('');
-}
 
-function toggleChallengeTask(id){
-var idx=data.dailyChallengeTasks.indexOf(id);
-if(idx===-1){data.dailyChallengeTasks.push(id);}else{data.dailyChallengeTasks.splice(idx,1);}
-saveData();renderChallengeSelector();updateChallengeProgress();renderCheckinList();
-}
-
+// ===== 今日挑战进度 =====
 function updateChallengeProgress(){
 var progressEl=document.getElementById('challenge-progress');
 if(!progressEl)return;
-if(data.dailyChallengeTasks.length===0){progressEl.style.display='none';return;}
-progressEl.style.display='block';
-var completed=0;
-for(var i=0;i<data.dailyChallengeTasks.length;i++){
-var item=findCheckinItem(data.dailyChallengeTasks[i]);
-if(item&&item.done)completed++;
-}
-document.getElementById('progress-current').textContent=completed;
-document.getElementById('progress-total').textContent=data.dailyChallengeTasks.length;
-document.getElementById('progress-fill').style.width=(completed/data.dailyChallengeTasks.length*100)+'%';
-if(completed===data.dailyChallengeTasks.length&&data.dailyChallengeTasks.length>0&&!data.dailyChallengeCompleted){
-completeDailyChallenge();
-}
-}
-
-function findCheckinItem(id){
 var allItems=data.checkinItems.concat(data.customActivities);
-for(var i=0;i<allItems.length;i++){if(allItems[i].id===id)return allItems[i];}
-return null;
+var total=allItems.length;
+var completed=0;
+for(var i=0;i<allItems.length;i++){if(allItems[i].done)completed++;}
+if(total===0){progressEl.style.display='none';return;}
+progressEl.style.display='block';
+document.getElementById('progress-current').textContent=completed;
+document.getElementById('progress-total').textContent=total;
+var percent=completed/total*100;
+document.getElementById('progress-fill').style.width=percent+'%';
+// 更新首页挑战卡片
+var homeCard=document.getElementById('home-challenge-card');
+var homeFill=document.getElementById('home-challenge-fill');
+var homeText=document.getElementById('home-challenge-text');
+var homeStatus=document.getElementById('home-challenge-status');
+if(homeCard){
+homeCard.style.display='block';
+if(homeFill)homeFill.style.width=percent+'%';
+if(homeText)homeText.textContent=completed+'/'+total;
+if(homeStatus){
+if(completed===total){
+homeStatus.textContent='已完成 ✓';
+homeStatus.classList.add('done');
+if(homeFill)homeFill.classList.add('done');
+}else{
+homeStatus.textContent='进行中';
+homeStatus.classList.remove('done');
+if(homeFill)homeFill.classList.remove('done');
 }
-
-function completeDailyChallenge(){
+}
+}
+// 如果全部完成且之前未完成，给予奖励
+if(completed===total&&!data.dailyChallengeCompleted){
+document.getElementById('progress-fill').style.background='linear-gradient(90deg, #27AE60, #2ECC71)';
 data.dailyChallengeCompleted=true;
 data.stars+=1;
 data.weeklyStars+=1;
+saveData();updateDisplay();
 showChallengeSuccess();
 checkWeeklyShield();
-saveData();updateDisplay();
+showToast('🎉 今日全部完成！奖励 ⭐ +1');
+}else if(completed===total){
+document.getElementById('progress-fill').style.background='linear-gradient(90deg, #27AE60, #2ECC71)';
+}else{
+document.getElementById('progress-fill').style.background='linear-gradient(90deg, #F8BBD9, #C2185B)';
+}
+}
+
+function checkWeeklyShield(){
+if(data.weeklyStars>=7&&!data.weeklyShieldEarned){
+data.shields+=1;
+data.weeklyShieldEarned=true;
+showToast('🎉 本周挑战完成！获得 🛡️ 盾牌 +1');
+}
 }
 
 function showChallengeSuccess(){
@@ -714,17 +734,10 @@ confetti.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];
 confetti.style.animationDelay=(Math.random()*2)+'s';
 confetti.style.borderRadius=Math.random()>0.5?'50%':'0';
 document.body.appendChild(confetti);
-setTimeout(function(el){return function(){el.remove();};}(confetti),3500);
+setTimeout(function(el){return function(){el.remove();};}(confetti),3000);
 }
 }
 
-function checkWeeklyShield(){
-if(data.weeklyStars>=7&&!data.weeklyShieldEarned){
-data.shields+=1;
-data.weeklyShieldEarned=true;
-showToast('🎉 本周挑战完成！获得 🛡️ 盾牌 +1');
-}
-}
 // ===== 奖杯 =====
 function checkTrophies(){
 if(data.streakDays>=25)data.trophies.bronze=true;
