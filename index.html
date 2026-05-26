@@ -174,6 +174,46 @@ body{font-family:'Microsoft YaHei','PingFang SC',sans-serif;background:linear-gr
 .phonics-result{background:rgba(255,255,255,.9);padding:15px;border-radius:15px;font-size:14px;color:#2C3E50;min-height:50px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
 .toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.8);background:linear-gradient(145deg,#C2185B,#AD1457);color:white;padding:15px 30px;border-radius:20px;font-size:14px;font-weight:bold;z-index:300;opacity:0;pointer-events:none;transition:all .3s cubic-bezier(.34,1.56,.64,1);box-shadow:0 10px 30px rgba(194,24,89,.4)}
 .toast.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+
+/* 今日挑战选择器 */
+.daily-challenge-selector { background: linear-gradient(145deg, rgba(255,255,255,.95), rgba(255,255,255,.85)); border-radius: 20px; padding: 16px; margin-bottom: 15px; box-shadow: 0 8px 25px rgba(0,0,0,.08), 0 4px 10px rgba(0,0,0,.04), inset 0 1px 1px rgba(255,255,255,.9); }
+.daily-challenge-selector h3 { color: #C2185B; font-size: 16px; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+.challenge-task-list { display: flex; flex-direction: column; gap: 8px; }
+.challenge-task-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: rgba(255,255,255,.8); border-radius: 12px; cursor: pointer; transition: all .3s; border: 2px solid transparent; }
+.challenge-task-item:hover { border-color: #F8BBD9; transform: translateX(3px); }
+.challenge-task-item.selected { border-color: #C2185B; background: linear-gradient(145deg, #FCE4EC, #F8BBD9); }
+.challenge-task-item .task-checkbox { width: 22px; height: 22px; border: 2px solid #F8BBD9; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; color: white; transition: all .3s; flex-shrink: 0; }
+.challenge-task-item.selected .task-checkbox { background: #C2185B; border-color: #C2185B; }
+.challenge-task-item .task-info { flex: 1; font-size: 14px; color: #2C3E50; }
+.challenge-task-item .task-info small { display: block; font-size: 12px; color: #7F8C8D; }
+
+/* 挑战进度条 */
+.challenge-progress { background: linear-gradient(145deg, rgba(255,255,255,.95), rgba(255,255,255,.85)); border-radius: 20px; padding: 16px; margin-bottom: 15px; box-shadow: 0 6px 18px rgba(0,0,0,.06); }
+.challenge-progress-bar { width: 100%; height: 12px; background: #F0F0F0; border-radius: 6px; overflow: hidden; margin: 10px 0; }
+.challenge-progress-fill { height: 100%; background: linear-gradient(90deg, #F8BBD9, #C2185B); border-radius: 6px; transition: width .5s cubic-bezier(.34,1.56,.64,1); }
+.challenge-progress-text { text-align: center; font-size: 14px; color: #6C3483; font-weight: bold; }
+
+/* 挑战成功动画 */
+@keyframes challengeSuccess { 0% { transform: scale(0) rotate(-180deg); opacity: 0; } 50% { transform: scale(1.2) rotate(10deg); } 70% { transform: scale(0.9) rotate(-5deg); } 100% { transform: scale(1) rotate(0deg); opacity: 1; } }
+@keyframes starFly { 0% { transform: translate(0, 0) scale(0) rotate(0deg); opacity: 1; } 100% { transform: translate(var(--tx), var(--ty)) scale(1.5) rotate(360deg); opacity: 0; } }
+@keyframes confettiFall { 0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+.challenge-success-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,.6); backdrop-filter: blur(5px); display: none; align-items: center; justify-content: center; z-index: 400; }
+.challenge-success-overlay.show { display: flex; }
+.challenge-success-box { background: linear-gradient(145deg, #FFF0F5, #FFE4EC); border-radius: 30px; padding: 40px 30px; text-align: center; max-width: 320px; width: 90%; animation: challengeSuccess .8s cubic-bezier(.34,1.56,.64,1); box-shadow: 0 20px 60px rgba(0,0,0,.3); }
+.challenge-success-box .big-trophy { font-size: 80px; margin-bottom: 15px; filter: drop-shadow(3px 5px 5px rgba(0,0,0,.2)); animation: trophyBounce 1s ease-in-out infinite; }
+@keyframes trophyBounce { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-15px) scale(1.1); } }
+.challenge-success-box h2 { color: #C2185B; font-size: 24px; margin-bottom: 10px; }
+.challenge-success-box p { color: #6C3483; font-size: 16px; margin-bottom: 20px; }
+.challenge-success-box .reward-stars { font-size: 40px; margin: 15px 0; }
+.star-particle { position: fixed; font-size: 24px; pointer-events: none; z-index: 500; animation: starFly 1.5s ease-out forwards; }
+.confetti { position: fixed; width: 10px; height: 10px; pointer-events: none; z-index: 450; animation: confettiFall 3s linear forwards; }
+
+/* 星座徽章 */
+.zodiac-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 15px; }
+.zodiac-item { text-align: center; padding: 12px 8px; background: rgba(255,255,255,.8); border-radius: 15px; box-shadow: 0 3px 10px rgba(0,0,0,.06); transition: all .3s; opacity: .4; filter: grayscale(1); }
+.zodiac-item.unlocked { opacity: 1; filter: grayscale(0); transform: scale(1.05); box-shadow: 0 6px 20px rgba(255,215,0,.3); }
+.zodiac-item .zodiac-emoji { font-size: 28px; display: block; margin-bottom: 5px; }
+.zodiac-item .zodiac-name { font-size: 11px; color: #6C3483; font-weight: bold; }
 </style>
 </head>
 <body>
@@ -226,6 +266,17 @@ body{font-family:'Microsoft YaHei','PingFang SC',sans-serif;background:linear-gr
 <div class="date-display" id="current-date"></div>
 <div class="streak-box">连续打卡<span id="streak-days">0</span>天🔥</div>
 </div>
+<!-- 今日挑战选择器 -->
+<div class="daily-challenge-selector" id="challenge-selector">
+<h3>🎯 今日挑战</h3>
+<p style="font-size:12px;color:#7F8C8D;margin-bottom:10px">勾选今天要完成的任务，全部完成可获得⭐奖励！</p>
+<div class="challenge-task-list" id="challenge-task-list"></div>
+</div>
+<!-- 挑战进度 -->
+<div class="challenge-progress" id="challenge-progress" style="display:none">
+<div class="challenge-progress-text">挑战进度：<span id="progress-current">0</span>/<span id="progress-total">0</span></div>
+<div class="challenge-progress-bar"><div class="challenge-progress-fill" id="progress-fill" style="width:0%"></div></div>
+</div>
 <div class="checkin-list" id="checkin-list"></div>
 </div>
 <!-- 活动商城页 -->
@@ -257,19 +308,14 @@ body{font-family:'Microsoft YaHei','PingFang SC',sans-serif;background:linear-gr
 <div class="card-3d" style="margin-bottom:12px">
 <h4 style="color:#C2185B;margin-bottom:12px;font-size:15px">🔄 兑换规则</h4>
 <div style="font-size:13px;color:#6C3483;line-height:2.2">
-⭐ 10颗魔法星 = 🎖️ 1个勋章<br>
-📅 连续打卡1周(周一~周日) = 🛡️ 1个盾牌<br>
-🛡️ 5个盾牌 = 🏅 1个奖章<br>
-🎖️ 10个勋章 = 🍎 1个水果奖章<br>
-🍎 20个水果奖章 = 🤖 1个机械奖牌<br>
-<small style="color:#999">（机械奖牌可向妈妈兑换艾比机器人）</small>
+⭐ 完成每日挑战 = 1颗小星星<br>
+🛡️ 连续7天获得小星星 = 1个盾牌<br>
+♈ 4个盾牌 = 1个星座徽章（12星座轮换）<br>
 </div>
 </div>
 <div class="shop-grid">
-<div class="shop-item"><span class="item-emoji">🎖️</span><span class="item-name">勋章</span><span class="item-price">⭐ 10 魔法星</span><button class="buy-btn" onclick="exchangeItem('勋章','star',10)">兑换</button></div>
-<div class="shop-item"><span class="item-emoji">🛡️</span><span class="item-name">盾牌</span><span class="item-price">📅 连续1周</span><button class="buy-btn" onclick="exchangeShield()">兑换</button></div>
-<div class="shop-item"><span class="item-emoji">🏅</span><span class="item-name">奖章</span><span class="item-price">🛡️ 5 盾牌</span><button class="buy-btn" onclick="exchangeItem('奖章','shield',5)">兑换</button></div>
-<div class="shop-item"><span class="item-emoji">🍎</span><span class="item-name">水果奖章</span><span class="item-price">🎖️ 10 勋章</span><button class="buy-btn" onclick="exchangeItem('水果奖章','medal',10)">兑换</button></div>
+<div class="shop-item"><span class="item-emoji">🛡️</span><span class="item-name">盾牌</span><span class="item-price">⭐ 连续7天</span><button class="buy-btn" onclick="exchangeShield()">兑换</button></div>
+<div class="shop-item"><span class="item-emoji">♈</span><span class="item-name">星座徽章</span><span class="item-price">🛡️ 4 盾牌</span><button class="buy-btn" onclick="exchangeZodiacBadge()">兑换</button></div>
 </div>
 </div>
 <div class="shop-content" id="shop-trophy">
@@ -284,6 +330,14 @@ body{font-family:'Microsoft YaHei','PingFang SC',sans-serif;background:linear-gr
 <div class="card-3d" style="text-align:center;margin-top:15px">
 <p style="font-size:14px;color:#6C3483">当前连续打卡<span id="trophy-streak" style="font-weight:bold;color:#C2185B;font-size:22px">0</span>天</p>
 <p style="font-size:12px;color:#999;margin-top:6px">破纪录时奖杯会变成金色闪耀！✨</p>
+</div>
+<div class="card-3d" style="margin-top:15px">
+<h4 style="color:#C2185B;margin-bottom:12px;text-align:center;font-size:15px">♈ 星座徽章墙</h4>
+<p style="font-size:12px;color:#7F8C8D;text-align:center;margin-bottom:12px">每4个盾牌可兑换1个星座徽章，收集全部12星座！</p>
+<div class="zodiac-grid" id="zodiac-grid"></div>
+<div style="text-align:center;margin-top:12px">
+<p style="font-size:13px;color:#6C3483">已收集：<span id="zodiac-count" style="font-weight:bold;color:#C2185B">0</span>/12</p>
+</div>
 </div>
 </div>
 </div>
@@ -492,13 +546,33 @@ checkinItems:[
 {id:11,emoji:'📻',text:'听故事',sub:'故事时间',done:false},
 {id:12,emoji:'👨‍🏫',text:'听邵鑫',sub:'邵鑫老师课程',done:false}
 ],
+zodiacBadges:[],
+weeklyStars:0,
+weeklyShieldEarned:false,
+lastChallengeDate:'',
+dailyChallengeTasks:[],
+dailyChallengeCompleted:false,
 trophies:{bronze:false,silver:false,gold:false},
 customActivities:[]
 };
 function loadData(){
 var saved=localStorage.getItem('dessertHouseData');
 if(saved){var parsed=JSON.parse(saved);for(var k in parsed){data[k]=parsed[k];}}
-updateDisplay();renderCheckinList();updateTrophyDisplay();
+// 检查是否是新的一天，重置挑战状态
+var today=new Date().toDateString();
+if(data.lastChallengeDate!==today){
+data.dailyChallengeCompleted=false;
+data.dailyChallengeTasks=[];
+data.lastChallengeDate=today;
+// 检查是否是新的一周（周一）
+var dayOfWeek=new Date().getDay();
+if(dayOfWeek===1){ // 周一
+  data.weeklyStars=0;
+  data.weeklyShieldEarned=false;
+}
+saveData();
+}
+updateDisplay();renderCheckinList();updateTrophyDisplay();renderChallengeSelector();updateChallengeProgress();
 }
 function saveData(){localStorage.setItem('dessertHouseData',JSON.stringify(data));}
 // ===== 页面切换 =====
@@ -510,6 +584,8 @@ var nav=document.querySelector('.nav-item[data-page="'+pageName+'"]');
 if(nav)nav.classList.add('active');
 if(pageName==='checkin'){
 document.getElementById('current-date').textContent=new Date().toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
+renderChallengeSelector();
+updateChallengeProgress();
 }
 if(pageName==='shop'){updateTrophyDisplay();}
 }
@@ -546,7 +622,108 @@ checkTrophies();showToast('🎉 打卡成功！+1⭐ 魔法星');
 item.done=false;data.stars=Math.max(0,data.stars-1);data.streakDays=Math.max(0,data.streakDays-1);
 showToast('已取消打卡');
 }
-saveData();updateDisplay();renderCheckinList();
+saveData();updateDisplay();renderCheckinList();updateChallengeProgress();
+}
+// ===== 今日挑战 =====
+function renderChallengeSelector(){
+var list=document.getElementById('challenge-task-list');
+if(!list)return;
+var allItems=data.checkinItems.concat(data.customActivities);
+list.innerHTML=allItems.map(function(item){
+var isSelected=data.dailyChallengeTasks.indexOf(item.id)!==-1;
+return '<div class="challenge-task-item '+(isSelected?'selected':'')+'" onclick="toggleChallengeTask('+item.id+')">'+
+'<div class="task-checkbox">'+(isSelected?'✓':'')+'</div>'+
+'<div class="task-info">'+item.emoji+' '+item.text+'<small>'+(item.sub||'')+'</small></div></div>';
+}).join('');
+}
+
+function toggleChallengeTask(id){
+var idx=data.dailyChallengeTasks.indexOf(id);
+if(idx===-1){data.dailyChallengeTasks.push(id);}else{data.dailyChallengeTasks.splice(idx,1);}
+saveData();renderChallengeSelector();updateChallengeProgress();renderCheckinList();
+}
+
+function updateChallengeProgress(){
+var progressEl=document.getElementById('challenge-progress');
+if(!progressEl)return;
+if(data.dailyChallengeTasks.length===0){progressEl.style.display='none';return;}
+progressEl.style.display='block';
+var completed=0;
+for(var i=0;i<data.dailyChallengeTasks.length;i++){
+var item=findCheckinItem(data.dailyChallengeTasks[i]);
+if(item&&item.done)completed++;
+}
+document.getElementById('progress-current').textContent=completed;
+document.getElementById('progress-total').textContent=data.dailyChallengeTasks.length;
+document.getElementById('progress-fill').style.width=(completed/data.dailyChallengeTasks.length*100)+'%';
+if(completed===data.dailyChallengeTasks.length&&data.dailyChallengeTasks.length>0&&!data.dailyChallengeCompleted){
+completeDailyChallenge();
+}
+}
+
+function findCheckinItem(id){
+var allItems=data.checkinItems.concat(data.customActivities);
+for(var i=0;i<allItems.length;i++){if(allItems[i].id===id)return allItems[i];}
+return null;
+}
+
+function completeDailyChallenge(){
+data.dailyChallengeCompleted=true;
+data.stars+=1;
+data.weeklyStars+=1;
+showChallengeSuccess();
+checkWeeklyShield();
+saveData();updateDisplay();
+}
+
+function showChallengeSuccess(){
+var overlay=document.getElementById('success-overlay');
+if(!overlay)return;
+overlay.classList.add('show');
+createStarParticles();
+createConfetti();
+}
+
+function closeSuccessOverlay(){
+var overlay=document.getElementById('success-overlay');
+if(overlay)overlay.classList.remove('show');
+}
+
+function createStarParticles(){
+for(var i=0;i<15;i++){
+var star=document.createElement('div');
+star.className='star-particle';
+star.textContent='⭐';
+star.style.left='50%';
+star.style.top='50%';
+star.style.setProperty('--tx',(Math.random()-0.5)*300+'px');
+star.style.setProperty('--ty',(Math.random()-0.5)*300+'px');
+star.style.animationDelay=(Math.random()*0.5)+'s';
+document.body.appendChild(star);
+setTimeout(function(el){return function(){el.remove();};}(star),2000);
+}
+}
+
+function createConfetti(){
+var colors=['#F8BBD9','#C2185B','#FFD700','#FF6B9D','#85C1E9','#A9DFBF'];
+for(var i=0;i<30;i++){
+var confetti=document.createElement('div');
+confetti.className='confetti';
+confetti.style.left=Math.random()*100+'vw';
+confetti.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];
+confetti.style.animationDelay=(Math.random()*2)+'s';
+confetti.style.borderRadius=Math.random()>0.5?'50%':'0';
+document.body.appendChild(confetti);
+setTimeout(function(el){return function(){el.remove();};}(confetti),3500);
+}
+}
+
+function checkWeeklyShield(){
+if(data.weeklyStars>=7&&!data.weeklyShieldEarned){
+data.shields+=1;
+data.weeklyShieldEarned=true;
+showToast('🎉 本周挑战完成！获得 🛡️ 盾牌 +1');
+}
 }
 // ===== 奖杯 =====
 function checkTrophies(){
@@ -764,6 +941,47 @@ showToast('🎉 兑换成功！获得 '+name);
 function exchangeShield(){
 showToast('📅 盾牌根据连续打卡周数自动发放');
 }
+function exchangeZodiacBadge(){
+if(data.shields<4){showToast('🛡️ 需要4个盾牌才能兑换星座徽章');return;}
+var zodiacList=[
+{name:'白羊座',emoji:'♈'},{name:'金牛座',emoji:'♉'},{name:'双子座',emoji:'♊'},
+{name:'巨蟹座',emoji:'♋'},{name:'狮子座',emoji:'♌'},{name:'处女座',emoji:'♍'},
+{name:'天秤座',emoji:'♎'},{name:'天蝎座',emoji:'♏'},{name:'射手座',emoji:'♐'},
+{name:'摩羯座',emoji:'♑'},{name:'水瓶座',emoji:'♒'},{name:'双鱼座',emoji:'♓'}
+];
+// 找到下一个未解锁的星座
+var nextZodiac=null;
+for(var i=0;i<zodiacList.length;i++){
+var found=false;
+for(var j=0;j<data.zodiacBadges.length;j++){
+if(data.zodiacBadges[j].name===zodiacList[i].name){found=true;break;}
+}
+if(!found){nextZodiac=zodiacList[i];break;}
+}
+if(!nextZodiac){showToast('🎉 恭喜！你已经收集了全部12星座徽章！');return;}
+data.shields-=4;
+data.zodiacBadges.push({name:nextZodiac.name,emoji:nextZodiac.emoji,date:new Date().toLocaleDateString('zh-CN')});
+saveData();updateDisplay();renderZodiacGrid();
+showToast('🎉 兑换成功！获得 '+nextZodiac.emoji+' '+nextZodiac.name+' 徽章');
+}
+function renderZodiacGrid(){
+var grid=document.getElementById('zodiac-grid');
+if(!grid)return;
+var zodiacList=[
+{name:'白羊座',emoji:'♈'},{name:'金牛座',emoji:'♉'},{name:'双子座',emoji:'♊'},
+{name:'巨蟹座',emoji:'♋'},{name:'狮子座',emoji:'♌'},{name:'处女座',emoji:'♍'},
+{name:'天秤座',emoji:'♎'},{name:'天蝎座',emoji:'♏'},{name:'射手座',emoji:'♐'},
+{name:'摩羯座',emoji:'♑'},{name:'水瓶座',emoji:'♒'},{name:'双鱼座',emoji:'♓'}
+];
+grid.innerHTML=zodiacList.map(function(z){
+var unlocked=data.zodiacBadges.some(function(b){return b.name===z.name;});
+return '<div class="zodiac-item '+(unlocked?'unlocked':'')+'" title="'+(unlocked?'已获得':'未获得')+'">'+
+'<span class="zodiac-emoji">'+z.emoji+'</span>'+
+'<span class="zodiac-name">'+z.name+'</span></div>';
+}).join('');
+var count=document.getElementById('zodiac-count');
+if(count)count.textContent=data.zodiacBadges.length;
+}
 // ===== 知识树 =====
 function toggleTree(node){
 var children=node.querySelector('.tree-children');
@@ -778,6 +996,17 @@ setTimeout(function(){toast.classList.remove('show');},2000);
 }
 // ===== 初始化 =====
 loadData();
+renderZodiacGrid();
 </script>
+<!-- 挑战成功弹窗 -->
+<div class="challenge-success-overlay" id="success-overlay">
+<div class="challenge-success-box">
+<div class="big-trophy">🏆</div>
+<h2>🎉 挑战成功！</h2>
+<p>太棒了！你完成了今日所有挑战！</p>
+<div class="reward-stars">⭐ +1</div>
+<button class="modal-close" onclick="closeSuccessOverlay()" style="margin-top:10px">太棒了！</button>
+</div>
+</div>
 </body>
 </html>
